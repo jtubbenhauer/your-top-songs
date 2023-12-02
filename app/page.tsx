@@ -1,24 +1,14 @@
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import AuthButtons from './components/auth-buttons';
+import { Form } from './components/form';
 
-export default async function Home() {
-  const accessToken = cookies().get('accessToken');
-  const refreshToken = cookies().get('refreshToken');
-
-  if (!accessToken || !refreshToken) {
-    // just return the page with login stuff
-    redirect('/api/login');
-  }
-
-  // createPlaylist(accessToken.value, refreshToken.value);
-
-  return accessToken ? (
-    <div>
-      <h1>Yay got token</h1>
-    </div>
-  ) : (
-    <div>
-      <h1>Boo no token</h1>
+export default function Home() {
+  return (
+    <div className='bg-slate-800 h-screen w-full'>
+      <div className='container pt-4'>
+        <AuthButtons></AuthButtons>
+        <h1 className='text-slate-100 text-[5rem]'>Your Top Songs</h1>
+        <Form></Form>
+      </div>
     </div>
   );
 }
