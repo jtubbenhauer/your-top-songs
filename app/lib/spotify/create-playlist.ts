@@ -1,4 +1,5 @@
 import { SpotifyApi, UserProfile } from '@spotify/web-api-ts-sdk';
+import { uniq, flatten, chunk } from 'lodash';
 
 export async function createPlaylist(
   title: string,

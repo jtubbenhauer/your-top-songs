@@ -1,13 +1,19 @@
-import AuthButtons from './components/auth-buttons';
-import { Form } from './components/form';
+import { Hero } from './components/hero/hero';
 
 export default function Home() {
   return (
-    <div className='bg-slate-800 h-screen w-full'>
-      <div className='container pt-4'>
-        <AuthButtons></AuthButtons>
-        <h1 className='text-slate-100 text-[5rem]'>Your Top Songs</h1>
-        <Form></Form>
+    <div className='container'>
+      <div className='grid h-[calc(100vh-6rem)] grid-cols-1  md:grid-cols-2'>
+        <div className='flex items-center justify-center text-6xl font-bold'>
+          <div className='flex flex-col gap-2'>
+            <span>Your</span>
+            <span>Top</span>
+            <span>Songs.</span>
+          </div>
+        </div>
+        <div className='flex items-center justify-center'>
+          <Hero />
+        </div>
       </div>
     </div>
   );
