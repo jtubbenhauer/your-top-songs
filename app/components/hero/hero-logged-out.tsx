@@ -10,11 +10,8 @@ export function HeroLoggedOut() {
         Create a playlist of <i>all</i> your Spotify Top Songs from over the
         years with a single click.
       </p>
-      <Button
-        onClick={() => signIn('spotify')}
-        className='bg-green-400 text-black'
-      >
-        Log In
+      <Button onClick={() => signIn('spotify')} className='text-black'>
+        Sign In
       </Button>
     </div>
   );

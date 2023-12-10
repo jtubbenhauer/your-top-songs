@@ -1,16 +1,13 @@
-import { SpotifyApi, UserProfile } from '@spotify/web-api-ts-sdk';
+'use client';
+
 import { uniq, flatten, chunk } from 'lodash';
+import { SpotifyApi } from '@spotify/web-api-ts-sdk';
 
 export async function createPlaylist(
   title: string,
-  description: string,
-  sdk?: SpotifyApi,
-  user?: UserProfile,
+  sdk: SpotifyApi,
+  description?: string,
 ) {
-  if (!sdk || !user) {
-    return;
-  }
-
   const playlists = await sdk
     .search('Your Top Songs', ['playlist'])
     .then((results) =>
@@ -32,8 +29,9 @@ export async function createPlaylist(
   );
 
   const uniqueTrackUris = uniq(flatten(playlistTrackUris));
-  const newPlaylist = await sdk.playlists.createPlaylist(user.id, {
-    name: title ?? 'Wow it works',
+  const userProfile = await sdk.currentUser.profile();
+  const newPlaylist = await sdk.playlists.createPlaylist(userProfile.id, {
+    name: title,
     description: description ?? 'All Your Top Songs',
   });
 

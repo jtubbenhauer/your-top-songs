@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Header } from './components/header';
 import { getServerSession } from 'next-auth';
 import { AuthSessionProvider } from './auth-session-provider';
+import { Header } from './components/header/header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,10 +26,7 @@ export default async function RootLayout({
             inter.className + ' bg-gradient-to-r from-slate-900 to-slate-800'
           }
         >
-          <div
-            className='w-full bg-cover bg-center bg-no-repeat text-slate-100'
-            style={{ backgroundImage: `url('/spotify-icon-trans.png')` }}
-          >
+          <div className='text-slate-100'>
             <Header />
             {children}
           </div>

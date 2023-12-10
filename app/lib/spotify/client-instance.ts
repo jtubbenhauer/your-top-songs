@@ -26,7 +26,7 @@ class NextAuthStrategy implements IAuthStrategy {
     }
 
     if (session?.error === 'RefreshAccessTokenError') {
-      await signIn();
+      await signIn('spotify');
       return this.getAccessToken();
     }
 
@@ -50,9 +50,7 @@ class NextAuthStrategy implements IAuthStrategy {
   }
 }
 
-function withNextAuthStrategy(config?: SdkOptions) {
+export function getSpotifySdk(config?: SdkOptions): SpotifyApi {
   const strategy = new NextAuthStrategy();
   return new SpotifyApi(strategy, config);
 }
-
-export default withNextAuthStrategy();
