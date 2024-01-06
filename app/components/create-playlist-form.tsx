@@ -9,10 +9,10 @@ import { Button } from '@/components/ui/button';
 import { createPlaylist } from '../lib/spotify/create-playlist';
 import { TypedInputField } from './form/input';
 import { TypedTextareaField } from './form/textarea';
-import { useState } from 'react';
-import { Image, Playlist } from '@spotify/web-api-ts-sdk';
+import { Dispatch, SetStateAction } from 'react';
+import { Image as SpotifyImage, Playlist } from '@spotify/web-api-ts-sdk';
 import { PlaylistDisplay } from './playlist-display';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -23,13 +23,13 @@ const formSchema = z.object({
 
 type CreatePlaylistForm = z.infer<typeof formSchema>;
 
-export function CreatePlaylistForm() {
-  const { data: session } = useSession();
-  const [playlist, setPlaylist] = useState<Playlist>();
-  const [playlistImage, setPlaylistImage] = useState<Image>();
+interface Props {
+  setPlaylist: Dispatch<SetStateAction<Playlist | undefined>>;
+  setImage: Dispatch<SetStateAction<SpotifyImage | undefined>>;
+}
 
+export function CreatePlaylistForm({ setPlaylist, setImage }: Props) {
   const sdk = getSpotifySdk();
-
   const form = useForm<CreatePlaylistForm>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,13 +38,6 @@ export function CreatePlaylistForm() {
   });
 
   async function onSubmit(values: CreatePlaylistForm) {
-    const tokenExpiry = session?.expires
-      ? new Date(session.expires).getTime()
-      : undefined;
-    if (tokenExpiry && Date.now() > tokenExpiry) {
-      await signIn('spotify');
-    }
-
     const playlist = await createPlaylist(
       values.title,
       sdk,
@@ -58,12 +51,10 @@ export function CreatePlaylistForm() {
       .then((images) => images[1]);
 
     setPlaylist(playlist);
-    setPlaylistImage(image);
+    setImage(image);
   }
 
-  return playlist ? (
-    <PlaylistDisplay playlist={playlist} image={playlistImage} />
-  ) : (
+  return (
     <div className='flex flex-col gap-4'>
       <PlaylistDisplay />
       <Form {...form}>

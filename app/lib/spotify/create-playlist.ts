@@ -2,6 +2,7 @@
 
 import { uniq, flatten, chunk } from 'lodash';
 import { Playlist, SpotifyApi } from '@spotify/web-api-ts-sdk';
+import { signIn } from 'next-auth/react';
 
 export async function createPlaylist(
   title: string,
@@ -42,6 +43,7 @@ export async function createPlaylist(
 
     return newPlaylist;
   } catch (error) {
-    console.error(error);
+    await signIn('spotify');
+    await createPlaylist(title, sdk, description);
   }
 }

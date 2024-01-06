@@ -2,19 +2,16 @@
 
 import { useState } from 'react';
 import { PlaylistDisplay } from '../playlist-display';
-import { IUser } from '@/app/lib/helpers/auth';
 import { CreatePlaylistForm } from '../create-playlist-form';
+import { Image as SpotifyImage, Playlist } from '@spotify/web-api-ts-sdk';
 
-interface Props {
-  user: IUser;
-}
+export function HeroLoggedIn() {
+  const [playlist, setPlaylist] = useState<Playlist>();
+  const [image, setImage] = useState<SpotifyImage>();
 
-export function HeroLoggedIn({ user }: Props) {
-  const [playlistCreated, setPlaylistCreated] = useState(false);
-
-  return playlistCreated ? (
-    <PlaylistDisplay />
+  return playlist && image ? (
+    <PlaylistDisplay playlist={playlist} image={image} />
   ) : (
-    <CreatePlaylistForm user={user} />
+    <CreatePlaylistForm setPlaylist={setPlaylist} setImage={setImage} />
   );
 }
