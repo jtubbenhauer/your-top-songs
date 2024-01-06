@@ -4,8 +4,8 @@ import Image from 'next/image';
 export default function Home() {
   return (
     <div className='container'>
-      <div className='grid h-[calc(100vh-6rem)] grid-cols-1 md:grid-cols-2  md:gap-64'>
-        <div className='flex items-center justify-center text-6xl font-bold md:justify-end'>
+      <div className='grid h-[calc(100vh-8rem)] grid-cols-1 gap-8 md:grid-cols-2 md:gap-24'>
+        <div className='flex items-center justify-center text-4xl font-bold md:text-6xl'>
           <div className='flex flex-col gap-2'>
             <span>Your</span>
             <span>Top</span>

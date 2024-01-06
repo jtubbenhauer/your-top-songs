@@ -27,15 +27,15 @@ export function ProfileImage() {
     <Image
       className='rounded-full'
       src={imageUrl}
-      width={48}
-      height={48}
+      width={40}
+      height={40}
       alt='Spotify Profile Image'
     />
   ) : (
     <Avatar
       className='hover:cursor-pointer'
       name={name ?? 'Y T S'}
-      size='48'
+      size='40'
       round={true}
     />
   );
