@@ -7,8 +7,7 @@ import { useSession } from 'next-auth/react';
 
 export function Hero() {
   const { status, data: session } = useSession();
-
   const user = getAuthUser(status, session);
 
-  return user ? <HeroLoggedIn user={user} /> : <HeroLoggedOut />;
+  return user ? <HeroLoggedIn /> : <HeroLoggedOut />;
 }
